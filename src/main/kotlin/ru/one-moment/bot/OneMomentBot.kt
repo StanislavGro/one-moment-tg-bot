@@ -43,7 +43,15 @@ class OneMomentBot {
 
             bot.sendMessage(
                 chatId = chatId,
-                text = "Привет! Добро пожаловать"
+                text = """
+                    Привет и добро пожаловать 🎉
+                    Для начала давай зарегистрируемся и увеличим функционал бота
+                """.trimIndent()
+            )
+
+            bot.sendMessage(
+                chatId = chatId,
+                text = "Нажимай на /login"
             )
         }
 
@@ -59,20 +67,32 @@ class OneMomentBot {
             )
         }
 
+        command("pay") {
+
+        }
+
         command("help") {
             _chatId = ChatId.fromId(message.chat.id)
             messageId = message.messageId
 
+            val helpText = """
+                    *Список команд:*
+                    /start - запустить бота
+                    /teachers - посмотреть учителей и направления
+                    /login - зарегистрироваться
+                    
+                    *Доступно после регистрации:*
+                    /schedule - мое расписание
+                    /group - моя группа
+                    /trial - записаться на пробное занятие
+                    /pay - оплатить абонемент
+                    
+                    /help - посмотреть все команды бота
+                """.trimIndent()
             bot.sendMessage(
-                chatId = chatId,
-                text =
-                    """
-                        Список команд:
-                        /start - запустить бота
-                        /teachers - посмотреть всех учителей
-                        
-                        /help - посмотреть все команды
-                    """.trimIndent()
+                chatId = ChatId.fromId(message.chat.id),
+                text = helpText,
+                parseMode = ParseMode.MARKDOWN,
             )
         }
     }
@@ -95,7 +115,7 @@ class OneMomentBot {
         }
 
         callbackQuery(callbackData = "nextTeacher") {
-            if(teacherId == teacherList.size - 1) {
+            if (teacherId == teacherList.size - 1) {
                 teacherId = 0
             } else {
                 teacherId++
