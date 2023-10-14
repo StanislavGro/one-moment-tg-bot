@@ -125,7 +125,7 @@ class OneMomentBot {
             bot.sendPhoto(
                 chatId = chatId,
                 photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherSchedule[0],
+                caption = teacherList[teacherId],
                 replyMarkup = nextPrevKeyboardButton,
                 parseMode = ParseMode.MARKDOWN
             )
@@ -156,7 +156,7 @@ class OneMomentBot {
             bot.sendPhoto(
                 chatId = chatId,
                 photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherSchedule[0],
+                caption = teacherList[teacherId],
                 replyMarkup = nextPrevKeyboardButton,
                 parseMode = ParseMode.MARKDOWN
             )
