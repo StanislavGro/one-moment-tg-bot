@@ -1,17 +1,18 @@
 package ru.`one-moment`.bot
 
 import com.github.kotlintelegrambot.Bot
+import ru.`one-moment`.bot.keyboards.Keyboards
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.Dispatcher
 import com.github.kotlintelegrambot.dispatcher.callbackQuery
 import com.github.kotlintelegrambot.dispatcher.command
 import com.github.kotlintelegrambot.entities.ChatId
-import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.entities.ParseMode
 import com.github.kotlintelegrambot.entities.TelegramFile
-import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 import com.github.kotlintelegrambot.logging.LogLevel
+import ru.`one-moment`.bot.teachers.OneMomentTeachers
+import ru.`one-moment`.bot.teachers.Roman
 import java.io.File
 
 private const val BOT_ANSWER_TIMEOUT = 30
@@ -45,15 +46,15 @@ class OneMomentBot {
 
             bot.sendMessage(
                 chatId = chatId,
-                text = """
-                    Привет и добро пожаловать 🎉
-                    Для начала давай зарегистрируемся и увеличим функционал бота
-                """.trimIndent()
+                text = "Привет и добро пожаловать 🎉"
             )
+
+            Thread.sleep(500)
 
             bot.sendMessage(
                 chatId = chatId,
-                text = "Нажимай на /login"
+                text = "Для начала давай зарегистрируемся и увеличим функционал бота",
+                replyMarkup = Keyboards.login
             )
         }
 
@@ -61,20 +62,15 @@ class OneMomentBot {
             _chatId = ChatId.fromId(message.chat.id)
             messageId = message.messageId
 
+            val teacher = OneMomentTeachers.current()
+
             bot.sendPhoto(
                 chatId = chatId,
-                photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherList[teacherId],
-                replyMarkup = nextPrevKeyboardButton,
+                photo = TelegramFile.ByFile(File(teacher.photo)),
+                caption = teacher.info,
+                replyMarkup = teacher.keyboard,
                 parseMode = ParseMode.MARKDOWN
             )
-
-//            bot.sendMessage(
-//                chatId = chatId,
-//                text = teacherList[teacherId],
-//                replyMarkup = nextPrevKeyboardButton,
-//                parseMode = ParseMode.MARKDOWN
-//            )
         }
 
         command("pay") {
@@ -109,11 +105,7 @@ class OneMomentBot {
 
     private fun Dispatcher.setUpCallbacks() {
         callbackQuery(callbackData = "prevTeacher") {
-            if (teacherId == 0) {
-                teacherId = teacherList.size - 1
-            } else {
-                teacherId--
-            }
+            val teacher = OneMomentTeachers.previous()
 
             messageId = messageId?.plus(1)
 
@@ -124,27 +116,15 @@ class OneMomentBot {
 
             bot.sendPhoto(
                 chatId = chatId,
-                photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherList[teacherId],
-                replyMarkup = nextPrevKeyboardButton,
+                photo = TelegramFile.ByFile(File(teacher.photo)),
+                caption = teacher.info,
+                replyMarkup = teacher.keyboard,
                 parseMode = ParseMode.MARKDOWN
             )
-
-//            bot.editMessageText(
-//                chatId = chatId,
-//                messageId = messageId?.plus(1L),
-//                replyMarkup = nextPrevKeyboardButton,
-//                parseMode = ParseMode.MARKDOWN,
-//                text = teacherList[teacherId],
-//            )
         }
 
         callbackQuery(callbackData = "nextTeacher") {
-            if (teacherId == teacherList.size - 1) {
-                teacherId = 0
-            } else {
-                teacherId++
-            }
+            val teacher = OneMomentTeachers.next()
 
             messageId = messageId?.plus(1)
 
@@ -155,34 +135,14 @@ class OneMomentBot {
 
             bot.sendPhoto(
                 chatId = chatId,
-                photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherList[teacherId],
-                replyMarkup = nextPrevKeyboardButton,
+                photo = TelegramFile.ByFile(File(teacher.photo)),
+                caption = teacher.info,
+                replyMarkup = teacher.keyboard,
                 parseMode = ParseMode.MARKDOWN
             )
-
-//            bot.editMessageText(
-//                chatId = chatId,
-//                messageId = messageId?.plus(1L),
-//                replyMarkup = nextPrevKeyboardButton,
-//                parseMode = ParseMode.MARKDOWN,
-//                text = teacherList[teacherId],
-//            )
         }
 
-//        callbackQuery(callbackData = "teacherSchedule") {
-//
-//            bot.editMessageText(
-//                chatId = chatId,
-//                messageId = messageId,
-//                text = teacherInfo[teacherId],
-//                parseMode = ParseMode.MARKDOWN,
-//                replyMarkup = romixxScheduleKeyboardButton
-//            )
-//
-//        }
-
-        callbackQuery(callbackData = "romixJunior") {
+        callbackQuery(callbackData = "junior") {
 
             messageId = messageId?.plus(1)
 
@@ -193,22 +153,14 @@ class OneMomentBot {
 
             bot.sendPhoto(
                 chatId = chatId,
-                photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherSchedule[0],
-                replyMarkup = nextPrevKeyboardButton,
+                photo = TelegramFile.ByFile(File(Roman.photo)),
+                caption = Roman.schedule[0],
+                replyMarkup = Roman.keyboard,
                 parseMode = ParseMode.MARKDOWN
             )
-
-//            bot.editMessageText(
-//                chatId = chatId,
-//                messageId = messageId,
-//                text = teacherSchedule[0],
-//                parseMode = ParseMode.MARKDOWN,
-//                replyMarkup = nextPrevKeyboardButton
-//            )
         }
 
-        callbackQuery(callbackData = "romixMiddle") {
+        callbackQuery(callbackData = "middle") {
 
             messageId = messageId?.plus(1)
 
@@ -219,94 +171,12 @@ class OneMomentBot {
 
             bot.sendPhoto(
                 chatId = chatId,
-                photo = TelegramFile.ByFile(File(teacherPhoto[teacherId])),
-                caption = teacherSchedule[1],
-                replyMarkup = nextPrevKeyboardButton,
+                photo = TelegramFile.ByFile(File(Roman.photo)),
+                caption = Roman.schedule[1],
+                replyMarkup = Roman.keyboard,
                 parseMode = ParseMode.MARKDOWN
             )
-
-//            bot.editMessageText(
-//                chatId = chatId,
-//                messageId = messageId,
-//                text = teacherSchedule[1],
-//                parseMode = ParseMode.MARKDOWN,
-//                replyMarkup = nextPrevKeyboardButton
-//            )
         }
 
-    }
-
-    companion object {
-        private var teacherId = 0
-
-        private val teacherList = listOf(
-            """
-                *Romixx* 🕺
-                
-                Направление *hip-hop*
-                Доступны 2 группы: 6-9 лет и 10-13 лет
-            """.trimIndent(),
-            "Наш *второй* препод",
-            "Наш *третий* препод"
-        )
-
-        private val teacherPhoto = listOf(
-            "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/romixx.jpg",
-            "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/romixx.jpg",
-            "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/romixx.jpg"
-        )
-
-        private val teacherSchedule = listOf(
-            "6-9 лет, понедельник, четверг с 17:00 до 18:00",
-            "10-13 лет понедельник, четверг с 20:00 до 21:00",
-        )
-
-        val nextPrevKeyboardButton = InlineKeyboardMarkup.create(
-            listOf(
-                InlineKeyboardButton.CallbackData(
-                    text = "6-9 лет",
-                    callbackData = "romixJunior"
-                ),
-                InlineKeyboardButton.CallbackData(
-                    text = "10-13 лет",
-                    callbackData = "romixMiddle"
-                )
-            ),
-            listOf(
-                InlineKeyboardButton.CallbackData(
-                    text = "Видео превью",
-                    callbackData = "videoPreview"
-                )
-            ),
-            listOf(
-                InlineKeyboardButton.CallbackData(
-                    text = "⬅️",
-                    callbackData = "prevTeacher"
-                ),
-                InlineKeyboardButton.CallbackData(
-                    text = "➡️",
-                    callbackData = "nextTeacher"
-                )
-            )
-        )
-
-        val romixxScheduleKeyboardButton = InlineKeyboardMarkup.create(
-            listOf(
-                InlineKeyboardButton.CallbackData(
-                    text = "6-9 лет",
-                    callbackData = "romix69"
-                ),
-                InlineKeyboardButton.CallbackData(
-                    text = "10-13 лет",
-                    callbackData = "romix1013"
-                )
-            ),
-            listOf(
-                InlineKeyboardButton.CallbackData(
-                    text = "Назад",
-                    callbackData = "back"
-                )
-            )
-        )
     }
 }
