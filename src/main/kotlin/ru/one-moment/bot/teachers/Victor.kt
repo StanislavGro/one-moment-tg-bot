@@ -22,7 +22,8 @@ object Victor : Teacher {
         )
 
     override val photo: String
-        get() = "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/Victor_Smarakov.jpg"
+//        get() = "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/Victor_Smarakov.jpg"
+        get() = "D:\\My programming\\one-moment-tg-bot\\src\\main\\resources\\teacher-photos\\Victor_Smarakov.jpg"
 
 
     override val video: String?
@@ -33,30 +34,36 @@ object Victor : Teacher {
         get() = InlineKeyboardMarkup.create(
             listOf(
                 InlineKeyboardButton.CallbackData(
-                    text = "krump 8+",
-                    callbackData = "krumpEightPlus"
-                ),
-                InlineKeyboardButton.CallbackData(
-                    text = "Lil'problems clan",
-                    callbackData = "lilProblemsClan"
-                ),
-                InlineKeyboardButton.CallbackData(
-                    text = "One moment clan",
-                    callbackData = "oneMomentClan"
+                    text = "Расписание",
+                    callbackData = "victorSchedule"
                 )
             ),
+//            listOf(
+//                InlineKeyboardButton.CallbackData(
+//                    text = "krump 8+",
+//                    callbackData = "krumpEightPlus"
+//                ),
+//                InlineKeyboardButton.CallbackData(
+//                    text = "Lil'problems clan",
+//                    callbackData = "lilProblemsClan"
+//                ),
+//                InlineKeyboardButton.CallbackData(
+//                    text = "One moment clan",
+//                    callbackData = "oneMomentClan"
+//                )
+//            ),
             listOf(
                 InlineKeyboardButton.CallbackData(
                     text = "Видео превью",
                     callbackData = "preview"
                 )
             ),
-            listOf(
-                InlineKeyboardButton.CallbackData(
-                    text = "Назад",
-                    callbackData = "back"
-                )
-            ),
+//            listOf(
+//                InlineKeyboardButton.CallbackData(
+//                    text = "Назад",
+//                    callbackData = "back"
+//                )
+//            ),
             listOf(
                 InlineKeyboardButton.CallbackData(
                     text = "⬅️",

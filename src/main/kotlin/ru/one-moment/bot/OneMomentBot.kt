@@ -53,7 +53,7 @@ class OneMomentBot {
 
             bot.sendMessage(
                 chatId = chatId,
-                text = "Для начала давай зарегистрируемся и увеличим функционал бота",
+                text = "Для начала давай зарегистрируемся",
                 replyMarkup = Keyboards.login
             )
         }
@@ -139,6 +139,13 @@ class OneMomentBot {
                 caption = teacher.info,
                 replyMarkup = teacher.keyboard,
                 parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "romanPreview") {
+            bot.sendVideo(
+                chatId = chatId,
+                video = TelegramFile.ByFile(File(Roman.video)),
             )
         }
 

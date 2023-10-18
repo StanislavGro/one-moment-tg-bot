@@ -11,7 +11,7 @@ object OneMomentTeachers{
     fun current(): Teacher = teachers[teacherId]
 
     fun next(): Teacher {
-        if(teacherId == teachers.size) {
+        if(teacherId == teachers.size - 1) {
             teacherId = 0
         } else {
             teacherId += 1
@@ -22,7 +22,7 @@ object OneMomentTeachers{
 
     fun previous(): Teacher {
         if(teacherId == 0) {
-            teacherId = teachers.size
+            teacherId = teachers.size - 1
         } else {
             teacherId -= 1
         }

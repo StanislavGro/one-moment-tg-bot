@@ -27,4 +27,13 @@ object Keyboards {
 
         )
     )
+
+    val back: InlineKeyboardMarkup = InlineKeyboardMarkup.create(
+        listOf(
+            InlineKeyboardButton.CallbackData(
+                text = "Назад",
+                callbackData = "back"
+            )
+        )
+    )
 }
