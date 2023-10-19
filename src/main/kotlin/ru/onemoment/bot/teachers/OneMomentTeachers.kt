@@ -1,4 +1,4 @@
-package ru.`one-moment`.bot.teachers
+package ru.onemoment.bot.teachers
 
 object OneMomentTeachers{
 

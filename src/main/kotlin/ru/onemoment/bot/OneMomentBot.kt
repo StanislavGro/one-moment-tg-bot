@@ -1,7 +1,7 @@
-package ru.`one-moment`.bot
+package ru.onemoment.bot
 
 import com.github.kotlintelegrambot.Bot
-import ru.`one-moment`.bot.keyboards.Keyboards
+import ru.onemoment.bot.keyboards.Keyboards
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.Dispatcher
@@ -11,8 +11,8 @@ import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ParseMode
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
-import ru.`one-moment`.bot.teachers.OneMomentTeachers
-import ru.`one-moment`.bot.teachers.Roman
+import ru.onemoment.bot.teachers.OneMomentTeachers
+import ru.onemoment.bot.teachers.Roman
 import java.io.File
 
 private const val BOT_ANSWER_TIMEOUT = 30

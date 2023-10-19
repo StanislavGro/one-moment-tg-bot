@@ -1,55 +1,61 @@
-package ru.`one-moment`.bot.teachers
+package ru.onemoment.bot.teachers
 
 import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 
-object Roman : Teacher {
+object Victor : Teacher {
     override val info: String
         get() =
             """
-                *Роман Панин* aka *Romixx* 🕺
+                *Виктор Смараков* 🕺
                 
-                Направление *HIP-HOP*
-                Доступны 2 группы: 6-9 лет и 10-13 лет
+                Направление: *HIP-HOP*, *KRUMP*
+                Группы: krump 8+, Lil'problems clan, One moment clan
             """.trimIndent()
 
 
     override val schedule: List<String>
         get() = listOf(
-            "6-9 лет, понедельник, четверг с 17:00 до 18:00",
-            "10-13 лет понедельник, четверг с 20:00 до 21:00",
+            "krump 8+ ( понедельник, пятница с 20:00 до 21:00)",
+            "Lil'problems clan вторник, четверг ( с 18:00 до 19:00) и среда с 19:00 до 20:00",
+            "One moment clan (понедельник, пятница с 21:00 до 23:00) среда с 20:30 до 22:30"
         )
 
     override val photo: String
-        //        get() = "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/Roman_Panin.jpg"
-        get() = "D:\\My programming\\one-moment-tg-bot\\src\\main\\resources\\teacher-photos\\Roman_Panin.jpg"
+//        get() = "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-photos/Victor_Smarakov.jpg"
+        get() = "D:\\My programming\\one-moment-tg-bot\\src\\main\\resources\\teacher-photos\\Victor_Smarakov.jpg"
 
 
     override val video: String?
-        get() = "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-videos/Roman_Panin.mp4"
+        get() = null
+//        get() = "/home/youngstanis/IdeaProjects/one-moment-tg-bot/src/main/resources/teacher-videos/Victor_Smarakov.mp4"
 
     override val keyboard: InlineKeyboardMarkup
         get() = InlineKeyboardMarkup.create(
             listOf(
                 InlineKeyboardButton.CallbackData(
                     text = "Расписание",
-                    callbackData = "romanSchedule"
+                    callbackData = "victorSchedule"
                 )
             ),
 //            listOf(
 //                InlineKeyboardButton.CallbackData(
-//                    text = "6-9 лет",
-//                    callbackData = "junior"
+//                    text = "krump 8+",
+//                    callbackData = "krumpEightPlus"
 //                ),
 //                InlineKeyboardButton.CallbackData(
-//                    text = "10-13 лет",
-//                    callbackData = "middle"
+//                    text = "Lil'problems clan",
+//                    callbackData = "lilProblemsClan"
+//                ),
+//                InlineKeyboardButton.CallbackData(
+//                    text = "One moment clan",
+//                    callbackData = "oneMomentClan"
 //                )
 //            ),
             listOf(
                 InlineKeyboardButton.CallbackData(
                     text = "Видео превью",
-                    callbackData = "romanPreview"
+                    callbackData = "preview"
                 )
             ),
 //            listOf(

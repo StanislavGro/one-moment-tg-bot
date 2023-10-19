@@ -3,9 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.8.0"
     application
+    id("org.springframework.boot") version "2.5.6"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
-group = "ru.one-moment"
+group = "ru.onemoment"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -28,6 +30,11 @@ dependencies {
 
     // Postgresql
     implementation("org.postgresql:postgresql:42.1.4")
+
+    // Spring boot
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
 }
 
 tasks.test {
