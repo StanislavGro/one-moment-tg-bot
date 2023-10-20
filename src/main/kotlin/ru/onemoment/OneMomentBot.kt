@@ -1,7 +1,6 @@
-package ru.onemoment.bot
+package ru.onemoment
 
 import com.github.kotlintelegrambot.Bot
-import ru.onemoment.bot.keyboards.Keyboards
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.Dispatcher
@@ -11,14 +10,15 @@ import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ParseMode
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
-import ru.onemoment.bot.teachers.OneMomentTeachers
-import ru.onemoment.bot.teachers.Roman
+import org.springframework.stereotype.Component
+import ru.onemoment.components.BotProperties
+import ru.onemoment.keyboards.Keyboards
 import java.io.File
 
-private const val BOT_ANSWER_TIMEOUT = 30
-private const val BOT_TOKEN = "6554932402:AAEYN8oYHnUmp4yWY5mnSFjkr7MnmkiVCqE"
-
-class OneMomentBot {
+@Component
+class OneMomentBot(
+    val botProperties: BotProperties
+) {
 
     private var _chatId: ChatId? = null
     private val chatId by lazy { requireNotNull(_chatId) }
@@ -27,8 +27,8 @@ class OneMomentBot {
 
     fun createBot(): Bot {
         return bot {
-            timeout = BOT_ANSWER_TIMEOUT
-            token = BOT_TOKEN
+            timeout = botProperties.timeout
+            token = botProperties.token
             logLevel = LogLevel.All()
 
             dispatch {

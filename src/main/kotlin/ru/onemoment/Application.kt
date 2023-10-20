@@ -1,12 +1,11 @@
 package ru.onemoment
 
 import com.github.kotlintelegrambot.entities.BotCommand
-import ru.onemoment.bot.OneMomentBot
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-open class Application {
+class Application {
     companion object {
         val botCommands: List<BotCommand> =
             listOf(

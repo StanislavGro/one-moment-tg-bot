@@ -1,10 +1,10 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.8.0"
     application
     id("org.springframework.boot") version "2.5.6"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id ("org.jetbrains.kotlin.plugin.jpa" )version "1.9.0"
+    id ("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
 }
 
 group = "ru.onemoment"
@@ -34,6 +34,7 @@ dependencies {
     // Spring boot
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
 }
 

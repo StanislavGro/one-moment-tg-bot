@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: "2023-10-20 19-00"
+      author: stanislav-grokhotov
+      changes:
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(40)
+              - column:
+                  name: schedule_id
+                  type: bigint
+
+        - createTable:
+            tableName: schedule
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: teacher_id
+                  type: bigint
+              - column:
+                  name: group_id
+                  type: bigint
+
+        - createTable:
+            tableName: teachers
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: direction
+                  type: varchar(50)
+              - column:
+                  name: info
+                  type: varchar(150)
+              - column:
+                  name: schedule_id
+                  type: bigint
+              - column:
+                  name: photo_title
+                  type: varchar(30)
+              - column:
+                  name: video_title
+                  type: varchar(30)
+
+
