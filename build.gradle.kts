@@ -29,7 +29,7 @@ dependencies {
     implementation("org.liquibase:liquibase-core:4.23.0")
 
     // Postgresql
-    implementation("org.postgresql:postgresql:42.1.4")
+    runtimeOnly("org.postgresql:postgresql")
 
     // Spring boot
     implementation("org.springframework.boot:spring-boot-starter")

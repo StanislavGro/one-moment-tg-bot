@@ -9,3 +9,8 @@ services:
       - "POSTGRES_DB=one-moment"
     ports:
       - "5433:5432"
+#    networks:
+#      - telegram-bot
+
+#networks:
+#  telegram-bot:

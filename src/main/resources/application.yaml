@@ -3,15 +3,17 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
+#    driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5433/one-moment
-    name: user
+    username: user
     password: user
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         ddl-auto: none
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
 
 bot:
   name: one_moment_dance_school_bot

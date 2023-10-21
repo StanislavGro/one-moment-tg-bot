@@ -1,4 +1,4 @@
-package ru.onemoment.teachers
+package ru.onemoment.entities
 
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -23,7 +23,7 @@ data class Teacher(
     val info: String?,
 
     @Column(name = "schedule_id")
-    @OneToMany(mappedBy = "teacher_id")
+    @OneToMany(mappedBy = "teacher")
     val schedule: Set<Schedule>,
 
     @Column(name = "photo_title")

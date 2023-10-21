@@ -67,5 +67,3 @@ databaseChangeLog:
               - column:
                   name: video_title
                   type: varchar(30)
-
-

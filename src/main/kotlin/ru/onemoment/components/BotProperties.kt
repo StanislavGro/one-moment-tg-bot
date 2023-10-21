@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 @ConfigurationProperties(prefix = "bot")
 data class BotProperties(
-    val name: String = "",
-    val token: String = "",
-    val timeout: Int = 30
+    var name: String = "",
+    var token: String = "",
+    var timeout: Int = 30
 )

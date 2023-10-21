@@ -1,4 +1,4 @@
-package ru.onemoment.teachers
+package ru.onemoment.entities
 
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -16,11 +16,12 @@ data class Schedule(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
-    @Column(name = "teacher_id")
+//    @JoinColumn(name="teacher_id")
+//    @Column(name = "teacher_id")
     @ManyToOne
-    val teacherId: Teacher,
+    val teacher: Teacher,
 
-    @Column(name = "group_id")
+//    @Column(name = "group_id")
     @ManyToMany
     @JoinTable(
         name = "schedule_group",
