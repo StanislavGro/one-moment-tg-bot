@@ -2,4 +2,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/v1.0/2023-10-20_19-00_init-db.yml
   - include:
-      file: db/changelog/v1.0/2023-23-10_18-00_insert-group-info.yml
+      file: db/changelog/v1.0/2023-10-23_18-00_insert-roman-group-info.yml
+  - include:
+      file: db/changelog/v1.0/2023-10-24_15-00_insert-victor-group-info.yml
+  - include:
+      file: db/changelog/v1.0/2023-10-24_15-30_insert-init-directions.yml
+  - include:
+      file: db/changelog/v1.0/2023-10-24_16-00_insert-roman-and-victor-info.yml

@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: "2023-10-24 16-00"
+      author: stanislav-grokhotov
+      changes:
+        - insert:
+            schemaName: public
+            tableName: teachers
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Roman"
+              - column:
+                  name: info
+                  value: "*Роман Панин* aka *Romixx* 🕺"
+              - column:
+                  name: photo_title
+                  value: "Roman_Panin.jpg"
+              - column:
+                  name: video_title
+                  value: "Roman_Panin.mp4"
+
+        - insert:
+            schemaName: public
+            tableName: teachers
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Victor"
+              - column:
+                  name: info
+                  value: "*Виктор Смараков* 🕺"
+              - column:
+                  name: photo_title
+                  value: "Victor_Smarakov.jpg"
+
+        - insert:
+            schemaName: public
+            tableName: teachers_directions
+            columns:
+              - column:
+                  name: teacher_id
+                  value: 1
+              - column:
+                  name: direction_id
+                  value: 1
+
+        - insert:
+            schemaName: public
+            tableName: teachers_directions
+            columns:
+              - column:
+                  name: teacher_id
+                  value: 2
+              - column:
+                  name: direction_id
+                  value: 1
+
+        - insert:
+            schemaName: public
+            tableName: teachers_directions
+            columns:
+              - column:
+                  name: teacher_id
+                  value: 2
+              - column:
+                  name: direction_id
+                  value: 2

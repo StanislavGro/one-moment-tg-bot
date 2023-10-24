@@ -16,6 +16,11 @@ data class Schedule(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
+    val
+
+    @Column(name = "time_period")
+    val timePeriod: String,
+
 //    @JoinColumn(name="teacher_id")
 //    @Column(name = "teacher_id")
     @ManyToOne

@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: "2023-10-24 15-30"
+      author: stanislav-grokhotov
+      changes:
+        - insert:
+            schemaName: public
+            tableName: directions
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Hip-Hop"
+        - insert:
+            catalogName: groups
+            schemaName: public
+            tableName: directions
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Krump"

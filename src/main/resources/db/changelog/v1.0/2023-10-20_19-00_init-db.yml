@@ -4,7 +4,7 @@ databaseChangeLog:
       author: stanislav-grokhotov
       changes:
         - createTable:
-            tableName: groups
+            tableName: directions
             columns:
               - column:
                   name: id
@@ -15,27 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: name
-                  type: varchar(40)
-              - column:
-                  name: schedule_id
-                  type: bigint
-
-        - createTable:
-            tableName: schedule
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: teacher_id
-                  type: bigint
-              - column:
-                  name: group_id
-                  type: bigint
+                  type: varchar(20)
 
         - createTable:
             tableName: teachers
@@ -53,17 +33,74 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: direction
-                  type: varchar(50)
-              - column:
                   name: info
                   type: varchar(150)
-              - column:
-                  name: schedule_id
-                  type: bigint
               - column:
                   name: photo_title
                   type: varchar(30)
               - column:
                   name: video_title
                   type: varchar(30)
+
+        - createTable:
+            tableName: teachers_directions
+            columns:
+              - column:
+                  name: teacher_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_teachers_directions_teacher_id
+                    references: teachers(id)
+              - column:
+                  name: direction_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_teachers_directions_direction_id
+                    references: directions(id)
+
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(40)
+
+        - createTable:
+            tableName: schedule
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: teacher_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_teacher
+                    references: teachers(id)
+
+        - createTable:
+            tableName: schedule_group
+            columns:
+              - column:
+                  name: schedule_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_group_schedule_id
+                    references: schedule(id)
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_group_group_id
+                    references: groups(id)

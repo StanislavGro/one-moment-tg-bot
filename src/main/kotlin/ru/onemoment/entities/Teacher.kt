@@ -5,6 +5,9 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 
 @Entity
@@ -16,8 +19,13 @@ data class Teacher(
     @Column(name = "name")
     val name: String,
 
-    @Column(name = "direction")
-    val direction: String?,
+    @ManyToMany
+    @JoinTable(
+        name = "teachers_directions",
+        joinColumns = [JoinColumn(name = "teacher_id")],
+        inverseJoinColumns = [JoinColumn(name = "direction_id")]
+    )
+    val directions: Set<Direction>,
 
     @Column(name = "info")
     val info: String?,
