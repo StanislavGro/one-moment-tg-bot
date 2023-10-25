@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/v1.0/2023-10-24_15-30_insert-init-directions.yml
   - include:
       file: db/changelog/v1.0/2023-10-24_16-00_insert-roman-and-victor-info.yml
+  - include:
+      file: db/changelog/v1.0/2023-10-26_00-50_insert-days-of-week.yml

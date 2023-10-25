@@ -11,64 +11,179 @@ databaseChangeLog:
                   name: id
                   value: 1
               - column:
-                  name: name
-                  value: "Roman"
-              - column:
-                  name: info
-                  value: "*Роман Панин* aka *Romixx* 🕺"
-              - column:
-                  name: photo_title
-                  value: "Roman_Panin.jpg"
-              - column:
-                  name: video_title
-                  value: "Roman_Panin.mp4"
-
+                  name: teacher_id
+                  value: 1
         - insert:
             schemaName: public
-            tableName: teachers
+            tableName: schedule
             columns:
               - column:
                   name: id
                   value: 2
               - column:
-                  name: name
-                  value: "Victor"
-              - column:
-                  name: info
-                  value: "*Виктор Смараков* 🕺"
-              - column:
-                  name: photo_title
-                  value: "Victor_Smarakov.jpg"
-
-        - insert:
-            schemaName: public
-            tableName: teachers_directions
-            columns:
-              - column:
                   name: teacher_id
-                  value: 1
-              - column:
-                  name: direction_id
                   value: 1
 
         - insert:
             schemaName: public
-            tableName: teachers_directions
+            tableName: schedule
             columns:
+              - column:
+                  name: id
+                  value: 3
               - column:
                   name: teacher_id
                   value: 2
+
+        - insert:
+            schemaName: public
+            tableName: schedule
+            columns:
               - column:
-                  name: direction_id
+                  name: id
+                  value: 4
+              - column:
+                  name: teacher_id
+                  value: 2
+
+        - insert:
+            schemaName: public
+            tableName: schedule
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: teacher_id
+                  value: 2
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 1
+              - column:
+                  name: day_of_week_id
                   value: 1
 
         - insert:
             schemaName: public
-            tableName: teachers_directions
+            tableName: schedule_days_of_week
             columns:
               - column:
-                  name: teacher_id
+                  name: schedule_id
+                  value: 1
+              - column:
+                  name: day_of_week_id
+                  value: 4
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
                   value: 2
               - column:
-                  name: direction_id
+                  name: day_of_week_id
+                  value: 1
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
                   value: 2
+              - column:
+                  name: day_of_week_id
+                  value: 4
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 3
+              - column:
+                  name: day_of_week_id
+                  value: 1
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 3
+              - column:
+                  name: day_of_week_id
+                  value: 5
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 4
+              - column:
+                  name: day_of_week_id
+                  value: 2
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 4
+              - column:
+                  name: day_of_week_id
+                  value: 3
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 4
+              - column:
+                  name: day_of_week_id
+                  value: 4
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 5
+              - column:
+                  name: day_of_week_id
+                  value: 1
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 5
+              - column:
+                  name: day_of_week_id
+                  value: 3
+
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 5
+              - column:
+                  name: day_of_week_id
+                  value: 5

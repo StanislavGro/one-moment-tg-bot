@@ -1,0 +1,75 @@
+databaseChangeLog:
+  - changeSet:
+      id: "2023-10-26 00-50"
+      author: stanislav-grokhotov
+      changes:
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Понедельник"
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: "Вторник"
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: "Среда"
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: name
+                  value: "Четверг"
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: name
+                  value: "Пятница"
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 6
+              - column:
+                  name: name
+                  value: "Суббота"
+        - insert:
+            schemaName: public
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  value: 7
+              - column:
+                  name: name
+                  value: "Воскресенье"

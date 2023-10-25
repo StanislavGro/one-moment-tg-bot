@@ -16,17 +16,20 @@ data class Schedule(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
-    val
+    @ManyToMany
+    @JoinTable (
+        name = "schedule_day_of_week",
+        joinColumns = [JoinColumn(name = "schedule_id")],
+        inverseJoinColumns = [JoinColumn(name = "day_of_week_id")]
+    )
+    val dayOfWeek: Set<DayOfWeek>,
 
     @Column(name = "time_period")
     val timePeriod: String,
 
-//    @JoinColumn(name="teacher_id")
-//    @Column(name = "teacher_id")
     @ManyToOne
     val teacher: Teacher,
 
-//    @Column(name = "group_id")
     @ManyToMany
     @JoinTable(
         name = "schedule_group",

@@ -73,6 +73,20 @@ databaseChangeLog:
                   type: varchar(40)
 
         - createTable:
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(40)
+
+        - createTable:
             tableName: schedule
             columns:
               - column:
@@ -88,6 +102,22 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_schedule_teacher
                     references: teachers(id)
+
+        - createTable:
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_days_of_week_schedule_id
+                    references: schedule(id)
+              - column:
+                  name: day_of_week_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_days_of_week_group_id
+                    references: days_of_week(id)
 
         - createTable:
             tableName: schedule_group

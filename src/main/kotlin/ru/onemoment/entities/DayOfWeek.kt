@@ -16,6 +16,6 @@ data class DayOfWeek(
     @Column(name = "name")
     val name: String,
 
-    @ManyToMany(mappedBy = "")
+    @ManyToMany(mappedBy = "group")
     val schedule: Set<Schedule>
 )
