@@ -7,6 +7,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Entity
 data class Group(
@@ -17,7 +18,6 @@ data class Group(
     @Column(name = "name")
     val name: String,
 
-//    @JoinColumn(name="schedule_id")
-    @ManyToMany(mappedBy = "group")
-    val schedule: Set<Schedule>
+    @ManyToOne
+    val schedule: Schedule
 )

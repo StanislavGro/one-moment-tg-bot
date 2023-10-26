@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 
 @Entity
 data class Schedule(
@@ -16,12 +17,8 @@ data class Schedule(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
-    @ManyToMany
-    @JoinTable (
-        name = "schedule_day_of_week",
-        joinColumns = [JoinColumn(name = "schedule_id")],
-        inverseJoinColumns = [JoinColumn(name = "day_of_week_id")]
-    )
+    @Column(name = "day_of_week_id")
+    @OneToMany(mappedBy = "schedule_id")
     val dayOfWeek: Set<DayOfWeek>,
 
     @Column(name = "time_period")
@@ -30,11 +27,7 @@ data class Schedule(
     @ManyToOne
     val teacher: Teacher,
 
-    @ManyToMany
-    @JoinTable(
-        name = "schedule_group",
-        joinColumns = [JoinColumn(name = "schedule_id")],
-        inverseJoinColumns = [JoinColumn(name = "group_id")]
-    )
+    @Column(name = "group_id")
+    @OneToMany(mappedBy = "schedule_id")
     val group: Set<Group>
 )

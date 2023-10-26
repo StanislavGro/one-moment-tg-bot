@@ -102,6 +102,9 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_schedule_teacher
                     references: teachers(id)
+              - column:
+                  name: time_period
+                  type: varchar(20)
 
         - createTable:
             tableName: schedule_days_of_week

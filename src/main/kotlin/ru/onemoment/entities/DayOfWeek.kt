@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
 
 @Entity
 data class DayOfWeek(
@@ -16,6 +17,6 @@ data class DayOfWeek(
     @Column(name = "name")
     val name: String,
 
-    @ManyToMany(mappedBy = "group")
-    val schedule: Set<Schedule>
+    @ManyToOne
+    val schedule: Schedule
 )
