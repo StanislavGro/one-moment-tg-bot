@@ -4,7 +4,6 @@ import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.Dispatcher
-import com.github.kotlintelegrambot.dispatcher.callbackQuery
 import com.github.kotlintelegrambot.dispatcher.command
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ParseMode
@@ -12,12 +11,16 @@ import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
 import org.springframework.stereotype.Component
 import ru.onemoment.components.BotProperties
-import ru.onemoment.keyboards.Keyboards
+import ru.onemoment.service.TeacherServiceImpl
+import ru.onemoment.service.impl.TeacherService
+import ru.onemoment.utills.Keyboards
+import ru.onemoment.utills.PhotoTitleConverter
 import java.io.File
 
 @Component
 class OneMomentBot(
-    private val botProperties: BotProperties
+    private val botProperties: BotProperties,
+    private val teacherService: TeacherServiceImpl
 ) {
 
     private var _chatId: ChatId? = null
@@ -58,20 +61,20 @@ class OneMomentBot(
             )
         }
 
-//        command("teachers") {
-//            _chatId = ChatId.fromId(message.chat.id)
-//            messageId = message.messageId
-//
-//            val teacher = OneMomentTeachers.current()
-//
-//            bot.sendPhoto(
-//                chatId = chatId,
-//                photo = TelegramFile.ByFile(File(teacher.photo)),
-//                caption = teacher.info,
+        command("teachers") {
+            _chatId = ChatId.fromId(message.chat.id)
+            messageId = message.messageId
+
+            val teacher = teacherService.getCurrentTeacher()
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))),
+                caption = teacher.info,
 //                replyMarkup = teacher.keyboard,
-//                parseMode = ParseMode.MARKDOWN
-//            )
-//        }
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
 
         command("pay") {
 

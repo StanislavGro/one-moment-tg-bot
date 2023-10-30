@@ -1,15 +1,8 @@
 package ru.onemoment.entities
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToMany
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
-@Entity
+@Entity(name = "groups")
 data class Group(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +11,9 @@ data class Group(
     @Column(name = "name")
     val name: String,
 
-    @ManyToOne
-    val schedule: Schedule
+    @ManyToMany(mappedBy = "groups")
+    val schedule: List<Schedule>,
+
+    @ManyToMany(mappedBy = "groups")
+    val users: List<User>,
 )

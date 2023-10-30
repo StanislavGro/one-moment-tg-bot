@@ -3,6 +3,8 @@ databaseChangeLog:
       id: "2023-10-20 19-00"
       author: stanislav-grokhotov
       changes:
+
+        # DIRECTIONS TABLE
         - createTable:
             tableName: directions
             columns:
@@ -17,6 +19,7 @@ databaseChangeLog:
                   name: name
                   type: varchar(20)
 
+        # TEACHERS TABLE
         - createTable:
             tableName: teachers
             columns:
@@ -42,6 +45,7 @@ databaseChangeLog:
                   name: video_title
                   type: varchar(30)
 
+        # TEACHERS AND DIRECTIONS TABLE
         - createTable:
             tableName: teachers_directions
             columns:
@@ -58,34 +62,7 @@ databaseChangeLog:
                     foreignKeyName: fk_teachers_directions_direction_id
                     references: directions(id)
 
-        - createTable:
-            tableName: groups
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: name
-                  type: varchar(40)
-
-        - createTable:
-            tableName: days_of_week
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: name
-                  type: varchar(40)
-
+        # SCHEDULE TABLE
         - createTable:
             tableName: schedule
             columns:
@@ -106,6 +83,53 @@ databaseChangeLog:
                   name: time_period
                   type: varchar(20)
 
+        # GROUPS TABLE
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(40)
+
+        - createTable:
+            tableName: schedule_groups
+            columns:
+              - column:
+                  name: schedule_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_group_schedule_id
+                    references: schedule(id)
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_schedule_group_group_id
+                    references: groups(id)
+
+        # DAYS OF WEEK TABLE
+        - createTable:
+            tableName: days_of_week
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(40)
+
+        # SCHEDULE AND DAYS OF WEEK TABLE
         - createTable:
             tableName: schedule_days_of_week
             columns:
@@ -122,18 +146,39 @@ databaseChangeLog:
                     foreignKeyName: fk_schedule_days_of_week_group_id
                     references: days_of_week(id)
 
+        # USER TABLE
         - createTable:
-            tableName: schedule_group
+            tableName: users
             columns:
               - column:
-                  name: schedule_id
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: chat_id
+                  type: bigint
+              - column:
+                  name: name
+                  type: varchar(40)
+              - column:
+                  name: phone_number
+                  type: varchar(40)
+
+        - createTable:
+            tableName: users_groups
+            columns:
+              - column:
+                  name: user_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_schedule_group_schedule_id
-                    references: schedule(id)
+                    foreignKeyName: fk_users_groups_user_id
+                    references: users(id)
               - column:
                   name: group_id
                   type: bigint
                   constraints:
-                    foreignKeyName: fk_schedule_group_group_id
+                    foreignKeyName: fk_users_groups_group_id
                     references: groups(id)

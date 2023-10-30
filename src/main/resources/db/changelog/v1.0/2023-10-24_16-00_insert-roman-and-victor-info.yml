@@ -22,7 +22,6 @@ databaseChangeLog:
               - column:
                   name: video_title
                   value: "Roman_Panin.mp4"
-
         - insert:
             schemaName: public
             tableName: teachers
@@ -50,7 +49,6 @@ databaseChangeLog:
               - column:
                   name: direction_id
                   value: 1
-
         - insert:
             schemaName: public
             tableName: teachers_directions
@@ -61,7 +59,6 @@ databaseChangeLog:
               - column:
                   name: direction_id
                   value: 1
-
         - insert:
             schemaName: public
             tableName: teachers_directions
@@ -72,3 +69,4 @@ databaseChangeLog:
               - column:
                   name: direction_id
                   value: 2
+                  

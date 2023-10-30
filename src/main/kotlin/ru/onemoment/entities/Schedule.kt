@@ -1,25 +1,20 @@
 package ru.onemoment.entities
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
+import javax.persistence.*
 
-@Entity
+@Entity(name = "schedule")
 data class Schedule(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
-    @Column(name = "day_of_week_id")
-    @OneToMany(mappedBy = "schedule_id")
-    val dayOfWeek: Set<DayOfWeek>,
+    @ManyToMany
+    @JoinTable(
+        name = "schedule_days_of_week",
+        joinColumns = [JoinColumn(name = "schedule_id")],
+        inverseJoinColumns = [JoinColumn(name = "day_of_week_id")]
+    )
+    val daysOfWeek: List<DayOfWeek>,
 
     @Column(name = "time_period")
     val timePeriod: String,
@@ -27,7 +22,11 @@ data class Schedule(
     @ManyToOne
     val teacher: Teacher,
 
-    @Column(name = "group_id")
-    @OneToMany(mappedBy = "schedule_id")
-    val group: Set<Group>
+    @ManyToMany
+    @JoinTable(
+        name = "schedule_groups",
+        joinColumns = [JoinColumn(name = "schedule_id")],
+        inverseJoinColumns = [JoinColumn(name = "group_id")]
+    )
+    val groups: List<Group>,
 )

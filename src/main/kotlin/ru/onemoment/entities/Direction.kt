@@ -1,13 +1,8 @@
 package ru.onemoment.entities
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.ManyToMany
+import javax.persistence.*
 
-@Entity
+@Entity(name = "directions")
 data class Direction (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +12,5 @@ data class Direction (
     val name: String,
 
     @ManyToMany(mappedBy = "directions")
-    val teachers: Set<Teacher>
+    val teachers: List<Teacher>,
 )

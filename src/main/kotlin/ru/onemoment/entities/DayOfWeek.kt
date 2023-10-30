@@ -1,14 +1,8 @@
 package ru.onemoment.entities
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.ManyToMany
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
-@Entity
+@Entity(name = "days_of_week")
 data class DayOfWeek(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +11,6 @@ data class DayOfWeek(
     @Column(name = "name")
     val name: String,
 
-    @ManyToOne
-    val schedule: Schedule
+    @ManyToMany(mappedBy = "daysOfWeek")
+    val schedule: List<Schedule>,
 )

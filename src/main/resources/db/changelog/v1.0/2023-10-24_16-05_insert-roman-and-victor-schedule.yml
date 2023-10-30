@@ -28,7 +28,7 @@ databaseChangeLog:
                   value: 1
               - column:
                   name: time_period
-                  value: "17:00-18:00"
+                  value: "20:00-21:00"
         - insert:
             schemaName: public
             tableName: schedule
@@ -38,7 +38,7 @@ databaseChangeLog:
                   value: 3
               - column:
                   name: teacher_id
-                  value: 1
+                  value: 2
               - column:
                   name: time_period
                   value: "20:00-21:00"
@@ -51,10 +51,10 @@ databaseChangeLog:
                   value: 4
               - column:
                   name: teacher_id
-                  value: 1
+                  value: 2
               - column:
                   name: time_period
-                  value: "20:00-21:00"
+                  value: "18:00-19:00"
         - insert:
             schemaName: public
             tableName: schedule
@@ -67,7 +67,7 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: time_period
-                  value: "20:00-21:00"
+                  value: "19:00-20:00"
         - insert:
             schemaName: public
             tableName: schedule
@@ -80,8 +80,7 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: time_period
-                  value: "20:00-21:00"
-
+                  value: "21:00-23:00"
         - insert:
             schemaName: public
             tableName: schedule
@@ -89,71 +88,6 @@ databaseChangeLog:
               - column:
                   name: id
                   value: 7
-              - column:
-                  name: teacher_id
-                  value: 2
-              - column:
-                  name: time_period
-                  value: "18:00-19:00"
-        - insert:
-            schemaName: public
-            tableName: schedule
-            columns:
-              - column:
-                  name: id
-                  value: 8
-              - column:
-                  name: teacher_id
-                  value: 2
-              - column:
-                  name: time_period
-                  value: "18:00-19:00"
-        - insert:
-            schemaName: public
-            tableName: schedule
-            columns:
-              - column:
-                  name: id
-                  value: 9
-              - column:
-                  name: teacher_id
-                  value: 2
-              - column:
-                  name: time_period
-                  value: "19:00-20:00"
-        - insert:
-            schemaName: public
-            tableName: schedule
-            columns:
-              - column:
-                  name: id
-                  value: 10
-              - column:
-                  name: teacher_id
-                  value: 2
-              - column:
-                  name: time_period
-                  value: "21:00-23:00"
-        - insert:
-            schemaName: public
-            tableName: schedule
-            columns:
-              - column:
-                  name: id
-                  value: 11
-              - column:
-                  name: teacher_id
-                  value: 2
-              - column:
-                  name: time_period
-                  value: "21:00-23:00"
-        - insert:
-            schemaName: public
-            tableName: schedule
-            columns:
-              - column:
-                  name: id
-                  value: 12
               - column:
                   name: teacher_id
                   value: 2
@@ -177,6 +111,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: schedule_id
+                  value: 1
+              - column:
+                  name: day_of_week_id
+                  value: 4
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 2
+              - column:
+                  name: day_of_week_id
+                  value: 1
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
                   value: 2
               - column:
                   name: day_of_week_id
@@ -197,6 +151,26 @@ databaseChangeLog:
             columns:
               - column:
                   name: schedule_id
+                  value: 3
+              - column:
+                  name: day_of_week_id
+                  value: 5
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 4
+              - column:
+                  name: day_of_week_id
+                  value: 2
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
                   value: 4
               - column:
                   name: day_of_week_id
@@ -208,6 +182,16 @@ databaseChangeLog:
               - column:
                   name: schedule_id
                   value: 5
+              - column:
+                  name: day_of_week_id
+                  value: 3
+        - insert:
+            schemaName: public
+            tableName: schedule_days_of_week
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 6
               - column:
                   name: day_of_week_id
                   value: 1
@@ -230,54 +214,75 @@ databaseChangeLog:
                   value: 7
               - column:
                   name: day_of_week_id
-                  value: 2
-        - insert:
-            schemaName: public
-            tableName: schedule_days_of_week
-            columns:
-              - column:
-                  name: schedule_id
-                  value: 8
-              - column:
-                  name: day_of_week_id
-                  value: 4
-        - insert:
-            schemaName: public
-            tableName: schedule_days_of_week
-            columns:
-              - column:
-                  name: schedule_id
-                  value: 9
-              - column:
-                  name: day_of_week_id
                   value: 3
+
         - insert:
             schemaName: public
-            tableName: schedule_days_of_week
+            tableName: schedule_groups
             columns:
               - column:
                   name: schedule_id
-                  value: 10
+                  value: 1
               - column:
-                  name: day_of_week_id
+                  name: group_id
                   value: 1
         - insert:
             schemaName: public
-            tableName: schedule_days_of_week
+            tableName: schedule_groups
             columns:
               - column:
                   name: schedule_id
-                  value: 11
+                  value: 2
               - column:
-                  name: day_of_week_id
+                  name: group_id
+                  value: 2
+        - insert:
+            schemaName: public
+            tableName: schedule_groups
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 3
+              - column:
+                  name: group_id
+                  value: 3
+        - insert:
+            schemaName: public
+            tableName: schedule_groups
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 4
+              - column:
+                  name: group_id
+                  value: 4
+        - insert:
+            schemaName: public
+            tableName: schedule_groups
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 5
+              - column:
+                  name: group_id
+                  value: 4
+        - insert:
+            schemaName: public
+            tableName: schedule_groups
+            columns:
+              - column:
+                  name: schedule_id
+                  value: 6
+              - column:
+                  name: group_id
                   value: 5
         - insert:
             schemaName: public
-            tableName: schedule_days_of_week
+            tableName: schedule_groups
             columns:
               - column:
                   name: schedule_id
-                  value: 12
+                  value: 7
               - column:
-                  name: day_of_week_id
-                  value: 3
+                  name: group_id
+                  value: 5
