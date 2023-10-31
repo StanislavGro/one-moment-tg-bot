@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id ("org.jetbrains.kotlin.plugin.jpa" )version "1.9.0"
     id ("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
+    id ("com.google.cloud.tools.jib") version "3.4.0"
 }
 
 group = "ru.onemoment"

@@ -18,5 +18,5 @@ spring:
 
 bot:
   name: one_moment_dance_school_bot
-  token: ${token}
+  token: 6554932402:AAEYN8oYHnUmp4yWY5mnSFjkr7MnmkiVCqE
   timeout: 30

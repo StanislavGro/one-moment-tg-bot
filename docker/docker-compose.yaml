@@ -4,13 +4,30 @@ services:
     container_name: one-moment-postgres
     image: postgres:14
     environment:
-      - "POSTGRES_USER=user"
-      - "POSTGRES_PASSWORD=user"
-      - "POSTGRES_DB=one-moment"
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: one-moment
     ports:
       - "5433:5432"
-#    networks:
-#      - telegram-bot
+    networks:
+      - telegram-bot
 
-#networks:
-#  telegram-bot:
+  main-bot:
+    container_name: main-bot
+    image: one-moment-tg-bot:1.0-SNAPSHOT
+#    build:
+#      context: dockerfiles/main-bot/.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://pg_database:5432/one-moment
+      SPRING_DATASOURCE_PASSWORD: user
+      SPRING_DATASOURCE_USERNAME: user
+    depends_on:
+      - pg_database
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - telegram-bot
+
+networks:
+  telegram-bot:

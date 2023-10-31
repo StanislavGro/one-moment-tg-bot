@@ -32,7 +32,7 @@ class OneMomentBot(
         return bot {
             timeout = botProperties.timeout
             token = botProperties.token
-            logLevel = LogLevel.All()
+            logLevel = LogLevel.Error
 
             dispatch {
                 setUpCommands()
