@@ -4,6 +4,7 @@ import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.Dispatcher
+import com.github.kotlintelegrambot.dispatcher.callbackQuery
 import com.github.kotlintelegrambot.dispatcher.command
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.ParseMode
@@ -11,16 +12,20 @@ import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.logging.LogLevel
 import org.springframework.stereotype.Component
 import ru.onemoment.components.BotProperties
-import ru.onemoment.service.TeacherServiceImpl
-import ru.onemoment.service.impl.TeacherService
-import ru.onemoment.utills.Keyboards
+import ru.onemoment.keyboards.Keyboard
+import ru.onemoment.keyboards.KeyboardFactory
+import ru.onemoment.service.ScheduleService
+import ru.onemoment.service.TeacherService
+//import ru.onemoment.utills.Keyboards
 import ru.onemoment.utills.PhotoTitleConverter
 import java.io.File
 
 @Component
 class OneMomentBot(
     private val botProperties: BotProperties,
-    private val teacherService: TeacherServiceImpl
+    private val teacherService: TeacherService,
+    private val keyboardFactory: KeyboardFactory,
+    private val scheduleService: ScheduleService
 ) {
 
     private var _chatId: ChatId? = null
@@ -36,7 +41,7 @@ class OneMomentBot(
 
             dispatch {
                 setUpCommands()
-//                setUpCallbacks()
+                setUpCallbacks()
             }
 
         }
@@ -57,7 +62,7 @@ class OneMomentBot(
             bot.sendMessage(
                 chatId = chatId,
                 text = "Для начала давай зарегистрируемся",
-                replyMarkup = Keyboards.login
+                replyMarkup = keyboardFactory.create(Keyboard.Login())
             )
         }
 
@@ -69,9 +74,11 @@ class OneMomentBot(
 
             bot.sendPhoto(
                 chatId = chatId,
-                photo = TelegramFile.ByFile(File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))),
-                caption = teacher.info,
-//                replyMarkup = teacher.keyboard,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = teacherService.getInfo(),
+                replyMarkup = keyboardFactory.create(Keyboard.TeacherKeyboard()),
                 parseMode = ParseMode.MARKDOWN
             )
         }
@@ -106,87 +113,216 @@ class OneMomentBot(
         }
     }
 
-//    private fun Dispatcher.setUpCallbacks() {
-//        callbackQuery(callbackData = "prevTeacher") {
-//            val teacher = OneMomentTeachers.previous()
-//
-//            messageId = messageId?.plus(1)
-//
-//            bot.deleteMessage(
-//                chatId = chatId,
-//                messageId = messageId!!
-//            )
-//
-//            bot.sendPhoto(
-//                chatId = chatId,
-//                photo = TelegramFile.ByFile(File(teacher.photo)),
-//                caption = teacher.info,
-//                replyMarkup = teacher.keyboard,
-//                parseMode = ParseMode.MARKDOWN
-//            )
-//        }
-//
-//        callbackQuery(callbackData = "nextTeacher") {
-//            val teacher = OneMomentTeachers.next()
-//
-//            messageId = messageId?.plus(1)
-//
-//            bot.deleteMessage(
-//                chatId = chatId,
-//                messageId = messageId!!
-//            )
-//
-//            bot.sendPhoto(
-//                chatId = chatId,
-//                photo = TelegramFile.ByFile(File(teacher.photo)),
-//                caption = teacher.info,
-//                replyMarkup = teacher.keyboard,
-//                parseMode = ParseMode.MARKDOWN
-//            )
-//        }
-//
-//        callbackQuery(callbackData = "romanPreview") {
-//            bot.sendVideo(
-//                chatId = chatId,
-//                video = TelegramFile.ByFile(File(Roman.video)),
-//            )
-//        }
-//
-//        callbackQuery(callbackData = "junior") {
-//
-//            messageId = messageId?.plus(1)
-//
-//            bot.deleteMessage(
-//                chatId = chatId,
-//                messageId = messageId!!
-//            )
-//
-//            bot.sendPhoto(
-//                chatId = chatId,
-//                photo = TelegramFile.ByFile(File(Roman.photo)),
-//                caption = Roman.schedule[0],
-//                replyMarkup = Roman.keyboard,
-//                parseMode = ParseMode.MARKDOWN
-//            )
-//        }
-//
-//        callbackQuery(callbackData = "middle") {
-//
-//            messageId = messageId?.plus(1)
-//
-//            bot.deleteMessage(
-//                chatId = chatId,
-//                messageId = messageId!!
-//            )
-//
-//            bot.sendPhoto(
-//                chatId = chatId,
-//                photo = TelegramFile.ByFile(File(Roman.photo)),
-//                caption = Roman.schedule[1],
-//                replyMarkup = Roman.keyboard,
-//                parseMode = ParseMode.MARKDOWN
-//            )
-//        }
-//
-//    }
+    private fun Dispatcher.setUpCallbacks() {
+        callbackQuery(callbackData = "prevTeacher") {
+            val teacher = teacherService.getPreviousTeacher()
+
+            messageId = messageId?.plus(1)
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = teacherService.getInfo(),
+                replyMarkup = keyboardFactory.create(Keyboard.TeacherKeyboard()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "nextTeacher") {
+            val teacher = teacherService.getNextTeacher()
+
+            messageId = messageId?.plus(1)
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = teacherService.getInfo(),
+                replyMarkup = keyboardFactory.create(Keyboard.TeacherKeyboard()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "login") {
+            bot.sendMessage(
+                chatId = chatId,
+                text = "Скоро сделаем :)"
+            )
+        }
+
+        callbackQuery(callbackData = "schedule") {
+
+            val teacher = teacherService.getCurrentTeacher()
+
+//            val schedule = scheduleService.getParsedScheduleByTeacherId(teacher.id)
+
+            messageId = messageId?.plus(1)
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+//                caption = schedule,
+                replyMarkup = keyboardFactory.create(Keyboard.TeacherGroup()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "backToTeacher") {
+            messageId = messageId?.plus(1)
+
+            val teacher = teacherService.getCurrentTeacher()
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = teacherService.getInfo(),
+                replyMarkup = keyboardFactory.create(Keyboard.TeacherKeyboard()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "6-9 лет") {
+
+            messageId = messageId?.plus(1)
+
+            val teacher = teacherService.getCurrentTeacher()
+            val groupScheduleInfo = scheduleService.getDayAndTimeByTeacherId(teacher.id, "6-9 лет")
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = groupScheduleInfo.joinToString(separator = "\n"),
+                replyMarkup = keyboardFactory.create(Keyboard.BackToSchedule()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "10-13 лет") {
+
+            messageId = messageId?.plus(1)
+
+            val teacher = teacherService.getCurrentTeacher()
+            val groupScheduleInfo = scheduleService.getDayAndTimeByTeacherId(teacher.id, "10-13 лет")
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = groupScheduleInfo.joinToString(separator = "\n"),
+                replyMarkup = keyboardFactory.create(Keyboard.BackToSchedule()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "Krump 8+") {
+
+            messageId = messageId?.plus(1)
+
+            val teacher = teacherService.getCurrentTeacher()
+            val groupScheduleInfo = scheduleService.getDayAndTimeByTeacherId(teacher.id, "Krump 8+")
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = groupScheduleInfo.joinToString(separator = "\n"),
+                replyMarkup = keyboardFactory.create(Keyboard.BackToSchedule()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "Lil'problems clan") {
+
+            messageId = messageId?.plus(1)
+
+            val teacher = teacherService.getCurrentTeacher()
+            val groupScheduleInfo = scheduleService.getDayAndTimeByTeacherId(teacher.id, "Lil'problems clan")
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = groupScheduleInfo.joinToString(separator = "\n"),
+                replyMarkup = keyboardFactory.create(Keyboard.BackToSchedule()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+        callbackQuery(callbackData = "One moment clan") {
+
+            messageId = messageId?.plus(1)
+
+            val teacher = teacherService.getCurrentTeacher()
+            val groupScheduleInfo = scheduleService.getDayAndTimeByTeacherId(teacher.id, "One moment clan")
+
+            bot.deleteMessage(
+                chatId = chatId,
+                messageId = messageId!!
+            )
+
+            bot.sendPhoto(
+                chatId = chatId,
+                photo = TelegramFile.ByFile(
+                    File(PhotoTitleConverter.getAbsolutePhotoPath(teacher.photoTitle))
+                ),
+                caption = groupScheduleInfo.joinToString(separator = "\n"),
+                replyMarkup = keyboardFactory.create(Keyboard.BackToSchedule()),
+                parseMode = ParseMode.MARKDOWN
+            )
+        }
+
+    }
+
 }

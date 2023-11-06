@@ -1,5 +1,7 @@
 package ru.onemoment.entities
 
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import javax.persistence.*
 
 @Entity(name = "schedule")
@@ -8,6 +10,7 @@ data class Schedule(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
         name = "schedule_days_of_week",
@@ -22,6 +25,7 @@ data class Schedule(
     @ManyToOne
     val teacher: Teacher,
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
         name = "schedule_groups",
