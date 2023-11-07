@@ -1,4 +1,4 @@
-package ru.onemoment.keyboards.builder
+package ru.onemoment.keyboards.builder.interfaces
 
 import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import ru.onemoment.keyboards.Keyboard

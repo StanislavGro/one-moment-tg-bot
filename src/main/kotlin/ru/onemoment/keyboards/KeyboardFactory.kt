@@ -1,7 +1,7 @@
 package ru.onemoment.keyboards
 
 import org.springframework.stereotype.Component
-import ru.onemoment.keyboards.builder.KeyboardBuilder
+import ru.onemoment.keyboards.builder.interfaces.KeyboardBuilder
 
 @Component
 class KeyboardFactory(val keyboardBuilders: List<KeyboardBuilder>) {

@@ -4,6 +4,7 @@ import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 import org.springframework.stereotype.Component
 import ru.onemoment.keyboards.Keyboard
+import ru.onemoment.keyboards.builder.interfaces.KeyboardBuilder
 import ru.onemoment.service.ScheduleService
 import ru.onemoment.service.TeacherService
 
