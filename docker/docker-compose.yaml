@@ -8,7 +8,8 @@ services:
       - "POSTGRES_PASSWORD=user"
       - "POSTGRES_DB=one-moment"
     ports:
-      - "5432:5432"
+      - "5433:5432"
+#      - "5432:5432"
 #    networks:
 #      - telegram-bot
 

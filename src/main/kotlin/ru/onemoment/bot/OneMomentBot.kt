@@ -86,6 +86,10 @@ class OneMomentBot(
             // Если есть, то ты уже зареган
             // Если нет, то давай ка зарегайся
 
+            bot.sendMessage(
+                chatId = chatId,
+                text = "Скоро сделаем :)",
+            )
         }
 
         command("help") {

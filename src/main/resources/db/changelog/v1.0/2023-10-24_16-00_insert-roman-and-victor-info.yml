@@ -34,10 +34,13 @@ databaseChangeLog:
                   value: "Victor"
               - column:
                   name: info
-                  value: "*Виктор Смараков* 🕺"
+                  value: "*Виктор Смараков* aka *Squaddie*🕺"
               - column:
                   name: photo_title
                   value: "Victor_Smarakov.jpg"
+              - column:
+                  name: video_title
+                  value: "Victor_Smarakov.mp4"
 
         - insert:
             schemaName: public
